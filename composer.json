@@ -1,0 +1,59 @@
+{
+    "name": "ernestdefoe/logo-manager",
+    "description": "Everything Flarum's logo setting will not do \u2014 SVG uploads, real size control that grows the header with it, alignment, live effects (pixelate, recolour, glow), and a seasonal schedule that swaps the logo by itself.",
+    "keywords": [
+        "flarum",
+        "flarum-extension",
+        "logo",
+        "svg",
+        "header",
+        "branding",
+        "seasonal"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ernest Defoe",
+            "email": "ernestdefoe@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/ernestdefoe/logo-manager",
+    "support": {
+        "issues": "https://github.com/ernestdefoe/logo-manager/issues",
+        "source": "https://github.com/ernestdefoe/logo-manager"
+    },
+    "require": {
+        "php": "^8.3",
+        "flarum/core": "^2.0",
+        "enshrined/svg-sanitize": "^0.21 || ^0.22 || ^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ernestdefoe\\LogoManager\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Logo Manager",
+            "category": "theme",
+            "icon": {
+                "name": "fas fa-image",
+                "backgroundColor": "#4f46e5",
+                "color": "#fff"
+            }
+        },
+        "flarum-cli": {
+            "modules": {
+                "js": true,
+                "css": true,
+                "locale": true
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
+}
