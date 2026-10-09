@@ -2,13 +2,15 @@
 
 > **Read-only archive of released versions of ernestdefoe/logo-manager.** Not for installation: use [Packagist](https://packagist.org/packages/ernestdefoe/logo-manager) or the [upstream repository](https://github.com/ernestdefoe/logo-manager).
 
-**0** versions archived · Latest: [`1.0.2`](https://github.com/flarchive/ernestdefoe-logo-manager/tree/archive/v1.0.2) · License: `MIT` · Flarum: `^2.0`
+**3** versions archived · Latest: [`1.0.2`](https://github.com/flarchive/ernestdefoe-logo-manager/tree/archive/v1.0.2) · License: `MIT` · Flarum: `^2.0`
 
 ## Archived Versions
 
 | Version | Released | Flarum | Source |
 |---|---|---|---|
-| — | — | — | — |
+| `1.0.0` | 2026-09-09 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-logo-manager/tree/archive/v1.0.0) |
+| `1.0.1` | 2026-10-02 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-logo-manager/tree/archive/v1.0.1) |
+| `1.0.2` | 2026-10-08 | `^2.0` | [Browse](https://github.com/flarchive/ernestdefoe-logo-manager/tree/archive/v1.0.2) |
 
 Catalog entry: [packages/ernestdefoe-logo-manager.json](https://github.com/flarchive/archive-index/blob/main/packages/ernestdefoe-logo-manager.json)
 
