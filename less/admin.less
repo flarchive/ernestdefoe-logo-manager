@@ -1,0 +1,703 @@
+// The Logo Studio.
+//
+// Built on Flarum's own custom properties throughout, so it reads as part of
+// the admin area in every colour scheme rather than as a panel somebody
+// bolted on. Nothing here hard-codes a grey.
+
+.LogoManager {
+  --lm-gap: 16px;
+  --lm-radius: 10px;
+
+  margin-top: 8px;
+}
+
+.LogoManager-error {
+  margin-bottom: var(--lm-gap);
+}
+
+// ---------------------------------------------------------------- preview
+
+.LogoManager-preview {
+  border: 1px solid var(--control-bg);
+  border-radius: var(--lm-radius);
+  overflow: hidden;
+  margin-bottom: var(--lm-gap);
+  background: var(--body-bg);
+}
+
+.LogoManager-previewBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--control-bg);
+}
+
+.LogoManager-previewLabel {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted-color);
+}
+
+// The stage carries its own light/dark ground rather than inheriting the
+// admin's: the whole point of the switch is to see the logo against the
+// header colour it will actually sit on.
+// A plain ground, deliberately not the checkerboard used in the upload slots.
+// There the checks say "this part is transparent"; here the subject is a
+// header bar that has its own colour, and laying it over a busy pattern left
+// a white bar on a white check pattern — the one thing you are meant to be
+// looking at was the hardest thing to see.
+.LogoManager-previewStage {
+  padding: 22px;
+  background: var(--control-bg);
+
+  &.is-dark {
+    background: #12141a;
+  }
+}
+
+.LogoManager-mockHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 14px;
+  background: var(--header-bg);
+  // The admin's own --header-bg is white, so without an edge the mock bar
+  // dissolves into the panel behind it.
+  box-shadow: 0 1px 3px var(--shadow-color), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: height 0.15s ease;
+
+  .is-dark & {
+    background: #232733;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.09);
+  }
+}
+
+.LogoManager-mockWeather {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.LogoManager-mockRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+
+  // Left alignment is core's own order — title, navigation, controls — with
+  // the navigation taking up the slack. Leaving the nav placeholder first
+  // and growing pushed the logo into the middle of the bar, so the preview
+  // showed a centred logo for a left-aligned setting.
+  .LogoManager-mockLogo {
+    order: 1;
+    flex: 0 0 auto;
+  }
+  .LogoManager-mockNav {
+    order: 2;
+    flex: 1 1 auto;
+  }
+  .LogoManager-mockControls {
+    order: 3;
+    flex: 0 0 auto;
+  }
+
+  &.is-centred {
+    .LogoManager-mockNav {
+      order: 1;
+      flex: 1 1 0;
+    }
+    .LogoManager-mockLogo {
+      order: 2;
+      flex: 0 0 auto;
+    }
+    .LogoManager-mockControls {
+      order: 3;
+      flex: 1 1 0;
+      justify-content: flex-end;
+    }
+  }
+}
+
+.LogoManager-mockLogo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.LogoManager-mockTitle {
+  font-size: 18px;
+  color: var(--header-color);
+
+  .is-dark & {
+    color: #fff;
+  }
+}
+
+.LogoManager-mockRecolor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+}
+
+.LogoManager-mockDecoration {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+// Stand-ins for the navigation and account controls. They exist so the
+// alignment control has something to be aligned against — a logo centred in
+// an empty bar looks the same whichever setting is chosen.
+.LogoManager-mockNav,
+.LogoManager-mockControls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  opacity: 0.35;
+
+  span {
+    display: block;
+    height: 8px;
+    width: 46px;
+    border-radius: 4px;
+    background: var(--header-color);
+
+    &.is-round {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+  }
+
+  .is-dark & span {
+    background: #fff;
+  }
+}
+
+.LogoManager-mockControls {
+  justify-content: flex-end;
+  flex: 0 0 auto;
+}
+
+.LogoManager-previewNote {
+  padding: 8px 12px;
+  font-size: 12px;
+  color: var(--muted-color);
+  border-top: 1px solid var(--control-bg);
+}
+
+.LogoManager-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+// ------------------------------------------------------------------- tabs
+
+.LogoManager-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--control-bg);
+  margin-bottom: var(--lm-gap);
+}
+
+.LogoManager-tab {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted-color);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+
+  &:hover {
+    color: var(--text-color);
+  }
+
+  &.is-active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+  }
+}
+
+// --------------------------------------------------------------- sections
+
+.LogoManager-section {
+  margin-bottom: 26px;
+}
+
+.LogoManager-sectionTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin: 0 0 2px;
+  color: var(--heading-color);
+}
+
+.LogoManager-sectionHelp,
+.LogoManager-help {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted-color);
+  margin-bottom: 10px;
+}
+
+.LogoManager-help {
+  margin: 4px 0 0;
+}
+
+.LogoManager-row {
+  margin-bottom: 14px;
+
+  &--inline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .LogoManager-label {
+      margin: 0;
+      flex: 0 0 130px;
+    }
+  }
+}
+
+.LogoManager-rowHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.LogoManager-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-color);
+}
+
+// Tabular figures: without them the readout jitters sideways as the number
+// changes, which on a slider you are dragging is very hard to ignore.
+.LogoManager-value {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-color);
+  background: var(--control-bg);
+  border-radius: 5px;
+  padding: 1px 7px;
+}
+
+// A slider row is held to a readable measure instead of being stretched to
+// the panel width: the label, the track and the value belong to each other,
+// and at 1000px the number ends up so far from the handle that they stop
+// reading as one control.
+.LogoManager-row--slider {
+  max-width: 520px;
+}
+
+// 🚨 Qualified with the element and the wrapper on purpose.
+//
+// Core's `.ExtensionPage-settings input { max-width: 400px }` is (0,1,1) and
+// a bare `.LogoManager-slider` is (0,1,0), so the plain class lost and every
+// track stopped short of its own row with the value floating off to the
+// right of it. Matching the element and adding the wrapper wins it outright
+// rather than depending on which stylesheet is compiled last.
+.LogoManager input.LogoManager-slider {
+  width: 100%;
+  max-width: none;
+  accent-color: var(--primary-color);
+}
+
+.LogoManager-select {
+  max-width: 320px;
+}
+
+.LogoManager-colour {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.LogoManager-swatch {
+  width: 38px;
+  height: 34px;
+  padding: 2px;
+  border: 1px solid var(--control-bg);
+  border-radius: 6px;
+  background: var(--body-bg);
+  cursor: pointer;
+}
+
+.LogoManager-hex {
+  width: 110px;
+  font-family: monospace;
+}
+
+// --------------------------------------------------------------- segmented
+
+.LogoManager-segmented {
+  display: inline-flex;
+  border: 1px solid var(--control-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--control-bg);
+  gap: 1px;
+}
+
+.LogoManager-segment {
+  appearance: none;
+  border: 0;
+  background: var(--body-bg);
+  color: var(--text-color);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  cursor: pointer;
+
+  &.is-active {
+    background: var(--primary-color);
+    color: #fff;
+  }
+}
+
+.LogoManager-segmented--small .LogoManager-segment {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+// ----------------------------------------------------------------- uploads
+
+.LogoManager-uploads {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--lm-gap);
+}
+
+.LogoManager-slot {
+  border: 1px solid var(--control-bg);
+  border-radius: var(--lm-radius);
+  padding: 14px;
+}
+
+.LogoManager-slotPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 92px;
+  margin: 8px 0 12px;
+  border-radius: 8px;
+  padding: 10px;
+  // The classic two-gradient checkerboard rather than a repeating conic one:
+  // the conic form renders as coarse bands at small tile sizes in some
+  // engines, and a "transparency" backdrop that does not read as a checker
+  // just looks like a rendering fault.
+  background-image: linear-gradient(45deg, var(--control-bg) 25%, transparent 25%, transparent 75%, var(--control-bg) 75%),
+    linear-gradient(45deg, var(--control-bg) 25%, transparent 25%, transparent 75%, var(--control-bg) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 8px;
+
+  img {
+    max-height: 72px;
+    max-width: 100%;
+  }
+
+  // The dark-mode logo is meaningless on a light plate — it is drawn for a
+  // dark header, so its preview shows it on one.
+  .LogoManager-slot.is-dark & {
+    background-color: #1a1d24;
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.06) 75%),
+      linear-gradient(45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
+  }
+}
+
+.LogoManager-slotEmpty {
+  font-size: 12px;
+  color: var(--muted-color);
+  text-align: center;
+}
+
+.LogoManager-slotActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+// A file input styled as a button: the native control cannot be styled, so
+// it is hidden inside the label that triggers it.
+.LogoManager-file {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  input[type='file'] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 0;
+  }
+}
+
+// ----------------------------------------------------------------- presets
+
+.LogoManager-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.LogoManager-preset {
+  appearance: none;
+  border: 1px solid var(--control-bg);
+  background: var(--control-bg);
+  color: var(--control-color);
+  border-radius: 20px;
+  padding: 5px 13px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+// -------------------------------------------------------------- art picker
+
+.LogoManager-artGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.LogoManager-art {
+  appearance: none;
+  border: 1px solid var(--control-bg);
+  background: var(--body-bg);
+  border-radius: 8px;
+  padding: 8px 4px 6px;
+  cursor: pointer;
+  text-align: center;
+  color: var(--muted-color);
+  font-size: 11px;
+
+  &:hover {
+    border-color: var(--primary-color);
+  }
+
+  &.is-active {
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 1px var(--primary-color);
+    color: var(--text-color);
+  }
+
+  &--none {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 72px;
+  }
+}
+
+.LogoManager-artImage {
+  height: 38px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 4px;
+}
+
+.LogoManager-artLabel {
+  display: block;
+  line-height: 1.3;
+}
+
+.LogoManager-weatherGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+// The weather tiles are their own preview: each shows the particles it
+// applies, on the dark ground most headers are closer to.
+.LogoManager-weatherTile {
+  appearance: none;
+  border: 1px solid var(--control-bg);
+  border-radius: 8px;
+  height: 62px;
+  cursor: pointer;
+  background-color: #2b3550;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 6px;
+
+  span {
+    font-size: 11px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    padding: 1px 6px;
+  }
+
+  &.is-active {
+    border-color: var(--primary-color);
+    box-shadow: inset 0 0 0 2px var(--primary-color);
+  }
+
+  &.LogoManager-art--none {
+    background-color: var(--body-bg);
+    align-items: center;
+    color: var(--muted-color);
+    font-size: 11px;
+  }
+}
+
+// ----------------------------------------------------------------- seasons
+
+.LogoManager-seasonList {
+  border: 1px solid var(--control-bg);
+  border-radius: var(--lm-radius);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.LogoManager-season {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  background: var(--body-bg);
+  border-bottom: 1px solid var(--control-bg);
+  cursor: grab;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &.is-editing {
+    background: var(--control-bg);
+  }
+
+  &.is-dragging {
+    opacity: 0.45;
+  }
+}
+
+.LogoManager-grip {
+  color: var(--muted-more-color);
+  cursor: grab;
+  flex: 0 0 auto;
+}
+
+.LogoManager-seasonIcon {
+  width: 22px;
+  height: 22px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  flex: 0 0 auto;
+}
+
+.LogoManager-seasonName {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+// Running-now gets a shape, not just different words — it is the one piece
+// of state on this list you scan for.
+.LogoManager-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--control-success-bg, #2e9e4f);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+.LogoManager-seasonWhen {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted-color);
+  flex: 0 0 auto;
+}
+
+.LogoManager-iconButton {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--muted-color);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+
+  &:hover {
+    color: var(--control-danger-bg, #d92b2b);
+    background: var(--control-bg);
+  }
+}
+
+.LogoManager-editor {
+  border: 1px solid var(--primary-color);
+  border-radius: var(--lm-radius);
+  padding: 16px;
+  margin-bottom: var(--lm-gap);
+}
+
+.LogoManager-dates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.LogoManager-empty {
+  padding: 18px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted-color);
+  border: 1px dashed var(--control-bg);
+  border-radius: var(--lm-radius);
+  margin-bottom: 14px;
+}
